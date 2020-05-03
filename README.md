@@ -8,7 +8,7 @@ in with shortcuts using their chosen increment.
 
 ```bash
 # Install build dependencies.
-sudo apt install gcc libglib2.0-dev libdconf-dev
+sudo apt install gcc libdconf-dev
 
 # Build the GNOME zoomer binary.
 gcc -Wall gnome-zoomer.c $(pkg-config --libs --cflags dconf) -o gnome-zoomer
@@ -46,6 +46,12 @@ Place the following contents in **~/.xbindkeysrc**:
 
 "gnome-zoomer -0.1"
   alt + b:5
+```
+
+Start xbindkeys:
+
+```bash
+xbindkeys_autostart
 ```
 
 ## License

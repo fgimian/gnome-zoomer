@@ -24,7 +24,9 @@ void print_usage() {
     printf("chosen increment.\n");
     printf(COLOUR_RESET);
     printf("\n");
-    printf("%sUsage: gnome-zoomer <increment>%s\n", COLOUR_BLUE, COLOUR_RESET);
+    printf(COLOUR_BLUE);
+    printf("Usage: gnome-zoomer <increment>\n");
+    printf(COLOUR_RESET);
     printf("\n");
     printf(COLOUR_YELLOW);
     printf("The <increment> value must be a decimal number between the range -31 and 31 where a 10%% increment\n");
@@ -33,7 +35,10 @@ void print_usage() {
 }
 
 void print_error(char *error) {
-    printf("%sError: %s%s\n\n", COLOUR_RED, error, COLOUR_RESET);
+    printf(COLOUR_RED);
+    printf("Error: %s\n", error);
+    printf(COLOUR_RESET);
+    printf("\n");
     print_usage();
 }
 

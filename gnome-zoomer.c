@@ -18,7 +18,7 @@ void print_usage() {
 	printf("GNOME Zoomer by Fotis Gimian\n");
 	printf("\n");
 	printf(COLOUR_GREEN);
-	printf("The GNOME zoomer utility updates tho relevant dconf setting to zoom the entire\n");
+	printf("The GNOME zoomer utility updates the relevant dconf setting to zoom the entire\n");
 	printf("desktop by a chosen increment.  This may be easily assigned to a keyboard\n");
 	printf("shortcut in GNOME so that the user may zoom in with shortcuts using their\n");
 	printf("chosen increment.\n");

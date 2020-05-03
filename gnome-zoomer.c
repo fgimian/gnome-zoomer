@@ -15,30 +15,27 @@
 #define COLOUR_RESET "\033[0m"
 
 void print_usage() {
-    printf("GNOME Zoomer by Fotis Gimian\n");
-    printf("\n");
-    printf(COLOUR_GREEN);
-    printf("The GNOME zoomer utility updates the relevant dconf setting to zoom the entire\n");
-    printf("desktop by a chosen increment.  This may be easily assigned to a keyboard\n");
-    printf("shortcut in GNOME so that the user may zoom in with shortcuts using their\n");
-    printf("chosen increment.\n");
-    printf(COLOUR_RESET);
-    printf("\n");
-    printf(COLOUR_BLUE);
-    printf("Usage: gnome-zoomer <increment>\n");
-    printf(COLOUR_RESET);
-    printf("\n");
-    printf(COLOUR_YELLOW);
-    printf("The <increment> value must be a decimal number between the range -31 and 31 where a 10%% increment\n");
-    printf("would be represented by 0.1.\n");
-    printf(COLOUR_RESET);
+    printf(
+        "GNOME Zoomer by Fotis Gimian\n"
+        "\n"
+        COLOUR_GREEN
+        "The GNOME zoomer utility updates the relevant dconf setting to zoom the entire\n"
+        "desktop by a chosen increment.  This may be easily assigned to a keyboard\n"
+        "shortcut in GNOME so that the user may zoom in with shortcuts using their\n"
+        "chosen increment.\n"
+        COLOUR_RESET
+        "\n"
+        COLOUR_BLUE "Usage: gnome-zoomer <increment>\n" COLOUR_RESET
+        "\n"
+        COLOUR_YELLOW
+        "The <increment> value must be a decimal number between the range -31 and 31 where a 10%% increment\n"
+        "would be represented by 0.1.\n"
+        COLOUR_RESET
+    );
 }
 
 void print_error(char *error) {
-    printf(COLOUR_RED);
-    printf("Error: %s\n", error);
-    printf(COLOUR_RESET);
-    printf("\n");
+    printf(COLOUR_RED "Error: %s\n" COLOUR_RESET "\n", error);
     print_usage();
 }
 

@@ -1,4 +1,5 @@
 #include <errno.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -36,6 +37,10 @@ void print_usage() {
 
 void print_error(char *error) {
     printf(COLOUR_RED "Error: %s\n" COLOUR_RESET "\n", error);
+}
+
+void print_error_and_usage(char *error) {
+    print_error(error);
     print_usage();
 }
 
@@ -50,17 +55,17 @@ int main(int argc, char *argv[]) {
     double mag_increment = strtod(argv[1], &endptr);
 
     if (mag_increment == 0 && errno == ERANGE) {
-        print_error("The increment entered was out of range.");
+        print_error_and_usage("The increment entered was out of range.");
         return 1;
     }
 
     if (strcmp(endptr, "") != 0) {
-        print_error("An invalid increment was entered.");
+        print_error_and_usage("An invalid increment was entered.");
         return 1;
     }
 
     if (mag_increment < -31 || mag_increment > 31) {
-        print_error("An increment was entered outside the range -31 to 31.");
+        print_error_and_usage("An increment was entered outside the range -31 to 31.");
         return 1;
     }
 
@@ -79,21 +84,45 @@ int main(int argc, char *argv[]) {
     }
 
     // Update the magnification factor and enable the magnifier.
-    // TODO: Handle errors below.
-    GError *mag_factor_error;
+    GError *mag_factor_error = NULL;
     dconf_client_write_fast(
         client,
         "/org/gnome/desktop/a11y/magnifier/mag-factor",
         g_variant_new_double(new_mag_factor),
         &mag_factor_error
     );
+
+    GError *mag_enabled_error = NULL;
     dconf_client_write_fast(
         client,
         "/org/gnome/desktop/a11y/applications/screen-magnifier-enabled",
         g_variant_new_boolean(TRUE),
-        &mag_factor_error
+        &mag_enabled_error
     );
+
     dconf_client_sync(client);
+
+    // Handle any errors that may have occurred while updating dconf settings.
+    bool dconf_error_occurred = false;
+    if (mag_factor_error != NULL) {
+        char *error = NULL;
+        sprintf(error, "Unable to set magnification factor: %s", mag_factor_error->message);
+        print_error(error);
+        g_error_free(mag_factor_error);
+        dconf_error_occurred = true;
+    }
+
+    if (mag_enabled_error != NULL) {
+        char *error = NULL;
+        sprintf(error, "Unable to enable magnifier: %s", mag_enabled_error->message);
+        print_error(error);
+        g_error_free(mag_enabled_error);
+        dconf_error_occurred = true;
+    }
+
+    if (dconf_error_occurred) {
+        return 2;
+    }
 
     return 0;
 }

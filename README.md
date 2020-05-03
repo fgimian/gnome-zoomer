@@ -28,6 +28,26 @@ sudo install -o root -g root -m 0755 gnome-zoomer /usr/bin/gnome-zoomer
    * Set **Command** to `gnome-zoomer -0.1` (or similar)
    * Click **Set Shortcut** and set to **Alt** + **-**
 
+## Assigning GNOME Zoomer to the Mouse Wheel
+
+We'll be assigning Alt+Wheel to adjust the zoom level.
+
+Start by installing **xbindkeys**:
+
+```bash
+sudo apt install xbindkeys
+```
+
+Place the following contents in **~/.xbindkeysrc**:
+
+```
+"gnome-zoomer 0.1"
+  alt + b:4
+
+"gnome-zoomer -0.1"
+  alt + b:5
+```
+
 ## License
 
 GNOME Zoomer is released under the **MIT** license. Please see the

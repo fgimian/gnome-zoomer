@@ -23,7 +23,7 @@ sudo install -o root -g root -m 0755 gnome-zoomer /usr/bin/gnome-zoomer
 2. Scroll to the bottom of the list and click **+**
 3. Create an item named **Zoom in increment**
    * Set **Command** to `gnome-zoomer 0.1` (or similar)
-   * Click **Set Shortcut** and set to **Alt** + **+**
+   * Click **Set Shortcut** and set to **Alt** + **=**
 4. Create an item named **Zoom out increment**
    * Set **Command** to `gnome-zoomer -0.1` (or similar)
    * Click **Set Shortcut** and set to **Alt** + **-**

@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include <dconf/client/dconf-client.h>
 #include <glib/gvariant.h>
@@ -84,6 +85,18 @@ int main(int argc, char *argv[]) {
     }
 
     // Update the magnification factor and enable the magnifier.
+    GError *mag_enabled_error = NULL;
+
+    // Enable the magnifier before changing the factor when zoom is above 1.0.
+    if (new_mag_factor > 1.0) {
+        dconf_client_write_fast(
+            client,
+            "/org/gnome/desktop/a11y/applications/screen-magnifier-enabled",
+            g_variant_new_boolean(true),
+            &mag_enabled_error
+        );
+    }
+
     GError *mag_factor_error = NULL;
     dconf_client_write_fast(
         client,
@@ -92,14 +105,17 @@ int main(int argc, char *argv[]) {
         &mag_factor_error
     );
 
-    GError *mag_enabled_error = NULL;
-    bool mag_enabled = new_mag_factor != 1.0;
-    dconf_client_write_fast(
-        client,
-        "/org/gnome/desktop/a11y/applications/screen-magnifier-enabled",
-        g_variant_new_boolean(mag_enabled),
-        &mag_enabled_error
-    );
+    // Disable the magnifier after changing the factor when zoom is back to 1.0.
+    if (new_mag_factor == 1.0) {
+        // Sleep for a short while so the animation completes before disabling the magnifier.
+        usleep(100 * 1000);
+        dconf_client_write_fast(
+            client,
+            "/org/gnome/desktop/a11y/applications/screen-magnifier-enabled",
+            g_variant_new_boolean(false),
+            &mag_enabled_error
+        );
+    }
 
     dconf_client_sync(client);
 

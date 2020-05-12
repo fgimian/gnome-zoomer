@@ -10,8 +10,14 @@ to assign a mouse wheel shortcut for it in Wayland at present.
 ## Compiling the Binary
 
 ```bash
-# Install build dependencies.
+# Install build dependencies (Debian / Ubuntu).
 sudo apt install gcc libdconf-dev
+
+# Install build dependencies (CentOS >= 8 / RHEL >= 8 / Fedora).
+sudo dnf install gcc dconf-devel
+
+# Install build dependencies (CentOS < 8 / RHEL < 8).
+sudo yum install gcc dconf-devel
 
 # Build the GNOME zoomer binary.
 gcc -Wall gnome-zoomer.c $(pkg-config --libs --cflags dconf) -o gnome-zoomer

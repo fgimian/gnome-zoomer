@@ -4,6 +4,9 @@ The GNOME zoomer utility updates the relevant dconf setting to zoom the entire d
 increment.  This may be easily assigned to a keyboard shortcut in GNOME so that the user may zoom
 in with shortcuts using their chosen increment.
 
+This utility works on both Xorg and Wayland, however I'm currently not aware of a way to assign it
+to assign a mouse wheel shortcut for it in Wayland at present.
+
 ## Compiling the Binary
 
 ```bash
@@ -28,7 +31,7 @@ sudo install -o root -g root -m 0755 gnome-zoomer /usr/bin/gnome-zoomer
    * Set **Command** to `gnome-zoomer -0.1` (or similar)
    * Click **Set Shortcut** and set to **Alt** + **-**
 
-## Assigning GNOME Zoomer to the Mouse Wheel
+## Assigning GNOME Zoomer to the Mouse Wheel (Xorg)
 
 We'll be assigning Alt+Wheel to adjust the zoom level.
 

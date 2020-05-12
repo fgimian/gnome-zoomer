@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
         client,
         "/org/gnome/desktop/a11y/magnifier/mag-factor"
     );
-    gdouble current_mag_factor = g_variant_get_double(mag_factor);
+    gdouble current_mag_factor = mag_factor == NULL ? 1.0 : g_variant_get_double(mag_factor);
 
     // Determine the new magnification factor based on the increment requested.
     gdouble new_mag_factor = current_mag_factor + mag_increment;

@@ -93,10 +93,11 @@ int main(int argc, char *argv[]) {
     );
 
     GError *mag_enabled_error = NULL;
+    bool mag_enabled = new_mag_factor != 1.0;
     dconf_client_write_fast(
         client,
         "/org/gnome/desktop/a11y/applications/screen-magnifier-enabled",
-        g_variant_new_boolean(TRUE),
+        g_variant_new_boolean(mag_enabled),
         &mag_enabled_error
     );
 
